@@ -5,11 +5,10 @@
 //  Created by Foo Chi Siong on 12/06/2020.
 //  Copyright © 2020 Foo Chi Siong. All rights reserved.
 //
-
 import UIKit
-import Realm
+import RealmSwift
 
-class Book: RLMObject {
+class Book: Object {
     dynamic var title = ""
     dynamic var author = ""
     dynamic var desc = ""

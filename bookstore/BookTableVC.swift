@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class BookTableViewCell : UITableViewCell {
     
@@ -18,16 +18,18 @@ class BookTableViewCell : UITableViewCell {
 
 class BookTableVC: UITableViewController {
     
-    var books : RLMResults<AnyObject> {
-        get{
-            return Book.allObjects()
-        }
+    var realm : Realm!
+    
+    var books: Results<Book> {
+      get {
+        return realm.objects(Book.self)
+      }
     }
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -37,31 +39,29 @@ class BookTableVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return Int(books.count)
+        return books.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath) as! BookTableViewCell
-
-        // Configure the cell...
-        let index = UInt(indexPath.row)
-        let bookItem = books.object(at: index) as! Book
         
-        cell.lblTitle.text = bookItem.title
-        cell.lblAuthor.text = bookItem.author
+        // Configure the cell...
+        
+        let bookItem = books[indexPath.row]
+        cell.lblTitle?.text = bookItem.title
+        cell.lblAuthor?.text = bookItem.author
         cell.imgPhoto.image = UIImage(contentsOfFile: bookItem.photo as String)
+        print("Cell: " + bookItem.title)
+       
         
         return cell
     }

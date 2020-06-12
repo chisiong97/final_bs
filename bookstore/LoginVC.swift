@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LoginVC: UIViewController {
     
@@ -16,10 +17,9 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         // Do any additional setup after loading the view.
     }
     
